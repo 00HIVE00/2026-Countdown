@@ -1,0 +1,356 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #0a0e27;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Animated gradient background */
+.bg-gradient {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        #ff0080 0%, 
+        #ff8c00 20%, 
+        #40e0d0 40%, 
+        #9d4edd 60%, 
+        #06ffa5 80%, 
+        #ff0080 100%);
+    animation: bgShift 15s ease infinite;
+    opacity: 0.3;
+}
+
+@keyframes bgShift {
+    0%, 100% { transform: translate(-25%, -25%) rotate(0deg); }
+    50% { transform: translate(-25%, -25%) rotate(180deg); }
+}
+
+/* Floating orbs */
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 0.6;
+    animation: float 8s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(100px, -100px) scale(1.2); }
+    66% { transform: translate(-100px, 100px) scale(0.8); }
+}
+
+/* Particles */
+.particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    animation: particleFloat 6s linear infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.container {
+    text-align: center;
+    z-index: 10;
+    padding: 60px 40px;
+    position: relative;
+}
+
+/* 3D rotating ring */
+.year-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: rotate3D 20s linear infinite;
+}
+
+@keyframes rotate3D {
+    0% { transform: translate(-50%, -50%) rotateY(0deg) rotateX(60deg); }
+    100% { transform: translate(-50%, -50%) rotateY(360deg) rotateX(60deg); }
+}
+
+h1 {
+    font-size: 5rem;
+    background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0, #9d4edd);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 40px;
+    animation: gradientFlow 3s ease infinite, pulse 2s ease-in-out infinite;
+    text-shadow: 0 0 60px rgba(255, 255, 255, 0.5);
+    letter-spacing: 5px;
+    font-weight: bold;
+}
+
+@keyframes gradientFlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.countdown {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    flex-wrap: wrap;
+    perspective: 1000px;
+}
+
+.time-unit {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.4s ease;
+}
+
+.time-unit:last-child {
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    animation: rotateCard 4s ease-in-out infinite;
+}
+
+.time-unit:last-child::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0, #9d4edd);
+    background-size: 300% 300%;
+    animation: borderGlow 3s ease infinite;
+    z-index: -1;
+}
+
+@keyframes borderGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes rotateCard {
+    0%, 100% { transform: rotateY(0deg); }
+    50% { transform: rotateY(5deg); }
+}
+
+.time-unit:last-child:hover {
+    transform: translateY(-20px) rotateY(10deg) scale(1.1);
+    box-shadow: 0 20px 60px rgba(255, 0, 128, 0.5);
+}
+
+.time-value {
+    font-size: 4.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #fff 0%, #40e0d0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    line-height: 1;
+    text-shadow: 0 0 30px rgba(64, 224, 208, 0.5);
+    animation: numberFlip 0.6s ease;
+}
+
+@keyframes numberFlip {
+    0% { transform: rotateX(0deg); opacity: 1; }
+    50% { transform: rotateX(90deg); opacity: 0.5; }
+    100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+.time-label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: 15px;
+    display: block;
+}
+
+/* Fireworks */
+.firework {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    animation: explode 1.2s ease-out forwards;
+}
+
+@keyframes explode {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+.celebration {
+    display: none;
+    font-size: 6rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #ff0080, #ff8c00, #40e0d0, #9d4edd, #06ffa5);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: celebrate 1s ease-in-out infinite, gradientFlow 3s ease infinite;
+    letter-spacing: 8px;
+    text-shadow: 0 0 80px rgba(255, 255, 255, 0.8);
+    position: relative;
+    filter: drop-shadow(0 0 30px rgba(255, 0, 128, 0.8)) 
+            drop-shadow(0 0 60px rgba(64, 224, 208, 0.6));
+}
+
+@keyframes celebrate {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.2) rotate(-10deg); }
+    75% { transform: scale(1.2) rotate(10deg); }
+}
+
+/* Final countdown styles */
+body.final-countdown {
+    background: #000;
+}
+
+body.final-countdown .bg-gradient {
+    background: linear-gradient(45deg, 
+        #ff0000 0%, 
+        #ff4500 20%, 
+        #ffd700 40%, 
+        #ff1493 60%, 
+        #ff0000 80%, 
+        #ff6347 100%);
+    opacity: 0.5;
+    animation: bgShiftFast 3s ease infinite;
+}
+
+@keyframes bgShiftFast {
+    0%, 100% { transform: translate(-25%, -25%) rotate(0deg) scale(1.2); }
+    50% { transform: translate(-25%, -25%) rotate(360deg) scale(1.5); }
+}
+
+body.final-countdown h1 {
+    font-size: 6rem;
+    animation: finalPulse 0.5s ease-in-out infinite, shake 0.2s ease-in-out infinite;
+}
+
+@keyframes finalPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px) rotate(-2deg); }
+    75% { transform: translateX(10px) rotate(2deg); }
+}
+
+body.final-countdown .time-unit:last-child {
+    animation: finalCountdownPulse 0.5s ease-in-out infinite;
+    transform: scale(1.3);
+}
+
+@keyframes finalCountdownPulse {
+    0%, 100% { 
+        transform: scale(1.3);
+        box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+    }
+    50% { 
+        transform: scale(1.5);
+        box-shadow: 0 0 80px rgba(255, 215, 0, 1);
+    }
+}
+
+body.final-countdown .time-value {
+    font-size: 5.5rem;
+    animation: numberGlow 0.3s ease-in-out infinite;
+}
+
+@keyframes numberGlow {
+    0%, 100% { 
+        text-shadow: 0 0 30px rgba(255, 0, 0, 1);
+    }
+    50% { 
+        text-shadow: 0 0 60px rgba(255, 215, 0, 1);
+    }
+}
+
+body.final-countdown .orb {
+    animation: floatFast 2s ease-in-out infinite;
+}
+
+@keyframes floatFast {
+    0%, 100% { transform: translate(0, 0) scale(1.5); }
+    50% { transform: translate(50px, -50px) scale(2); }
+}
+
+body.final-countdown .particle {
+    animation-duration: 1s;
+}
+
+body.final-countdown .year-ring {
+    border-color: rgba(255, 0, 0, 0.5);
+    animation: rotateFast 3s linear infinite;
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+}
+
+@keyframes rotateFast {
+    0% { transform: translate(-50%, -50%) rotateY(0deg) rotateX(60deg); }
+    100% { transform: translate(-50%, -50%) rotateY(720deg) rotateX(60deg); }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .time-value { font-size: 2.5rem; }
+    .time-unit:last-child { 
+        width: 140px; 
+        height: 140px; 
+    }
+    .countdown { gap: 20px; }
+    .year-ring { 
+        width: 350px; 
+        height: 350px; 
+    }
+}
+
